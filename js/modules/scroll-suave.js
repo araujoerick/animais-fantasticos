@@ -1,32 +1,34 @@
-export default function initScrollSuave() {
-  const linksInternos = document.querySelectorAll(
-    "[data-menu='suave'] [href^='#']"
-  );
+export default class ScrollSuave {
+  constructor(links, options) {
+    this.linksInternos = document.querySelectorAll(links);
+    if (options === undefined) {
+      this.options = { behavior: "smooth", block: "start" };
+    } else this.options = options;
 
-  function scrollToSection(event) {
+    // O bind reescreve a função scrollToSection para ela se referenciar ao this da Class
+    this.scrollToSection = this.scrollToSection.bind(this);
+  }
+
+  scrollToSection(event) {
     event.preventDefault();
     const href = event.currentTarget.getAttribute("href");
     const section = document.querySelector(href);
 
-    // Método mais suportado e não precisa calcular a distância do topo
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    // MÉTODOS ALTERNATIVOS
-    // const sectionTop = section.offsetTop; // A distância do topo até o topo do elemento
-    // Método para scrollar que recebe dois valores em pixels
-    // window.scrollTo(0, sectionTop);
-
-    // Método scrollTo(options) recebe um objeto e permite o scroll suave
-    // window.scrollTo({
-    //   top: sectionTop,
-    //   behavior: "smooth",
-    // });
+    // Depois do bind esse this agora se refere a classe
+    section.scrollIntoView(this.options);
   }
 
-  linksInternos.forEach((link) => {
-    link.addEventListener("click", scrollToSection);
-  });
+  addLinkEvent() {
+    this.linksInternos.forEach((link) => {
+      link.addEventListener("click", this.scrollToSection);
+    });
+  }
+
+  init() {
+    if (this.linksInternos.length) {
+      this.addLinkEvent();
+    }
+    // Para não retornar undefined e ser possível linkar mais opções com o .
+    return this;
+  }
 }
