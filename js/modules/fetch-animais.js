@@ -1,6 +1,6 @@
 // Traz a animação dos números para esse arquivo
 // Pra ela só acontecer depois que os números forem carregados do JSON
-import initAnimaNumeros from "./anima-numeros.js";
+import AnimaNumeros from "./anima-numeros.js";
 
 export default function initFetchAnimais() {
   // Função para criar animais a partir do JSON que foi pego
@@ -31,7 +31,12 @@ export default function initFetchAnimais() {
         // Seta cada div la no DOM com filho da div pai
         numerosGrid.appendChild(divAnimal);
       });
-      initAnimaNumeros();
+      const animaNumeros = new AnimaNumeros(
+        "[data-numero]",
+        ".numeros",
+        "ativo"
+      );
+      animaNumeros.init();
     } catch (erro) {
       console.log(erro);
     }
