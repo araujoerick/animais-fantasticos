@@ -4,7 +4,7 @@ export default function outsideClick(element, events, callback) {
   const outside = "data-outside";
 
   function handleOutsideClick(event) {
-    // Se o elemento não for igual ao event target, então execulta o callback parar remover a classe ativo
+    // Se o elemento não for igual ao event target, então executa o callback para remover a classe ativo
     if (!element.contains(event.target)) {
       element.removeAttribute(outside, ""); // remove o atributo
       // Remover o evento tambem pq não vai ser utilizado até o próximo clique
