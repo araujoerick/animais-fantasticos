@@ -1,10 +1,14 @@
+import debounce from "./debounce.js";
+
 export default class ScrollAnima {
   constructor(sections) {
     this.sections = document.querySelectorAll(sections);
     // Pegar métade da tela do usuário para o site não ficar vazio no scroll
     this.windowHalf = window.innerHeight * 0.7;
 
-    this.checkDistance = this.checkDistance.bind(this);
+    // O callback e o delay
+    // Callback é a função que queremos ativar e o delay é o tempo que quer esperar
+    this.checkDistance = debounce(this.checkDistance.bind(this), 50);
   }
 
   // Ao invés de ficar a todo momento pegando a distancia do elemento até o topo
