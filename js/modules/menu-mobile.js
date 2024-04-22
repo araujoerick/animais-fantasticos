@@ -14,7 +14,9 @@ export default class MenuMobile {
     this.openMenu = this.openMenu.bind(this);
   }
 
-  openMenu() {
+  openMenu(event) {
+    // preventDefault previne que o touchstart e o click ocorram ao mesmo tempo
+    event.preventDefault();
     this.menuButton.classList.add(this.activeClass);
     this.menuList.classList.add(this.activeClass);
     // Função importada, recebe o elemento que não deve ser clicado para ativar a função | Recebe o evento, nesse caso uma array | E a função de callback que nesse caso é anônima para remover as classes
